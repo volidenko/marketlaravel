@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-6">
                         <p>Цена: {{ number_format($product->price, 2, '.', '') }}</p>
-                        <!-- Форма для добавления товара в корзину -->
+                        <!-- добавления товара в корзину -->
                         <form action="{{ route('basket.add', ['id' => $product->id]) }}"
                             method="post" class="form-inline">
                             @csrf
