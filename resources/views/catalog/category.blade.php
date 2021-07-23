@@ -5,7 +5,7 @@
     <p>{{ $category->content }}</p>
     <div class="row">
         @foreach ($category->products as $product)
-            @include('part.product')
+            @include('catalog.part.product')
         @endforeach
     </div>
 @endsection
