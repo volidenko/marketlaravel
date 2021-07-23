@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\BasketController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,33 +19,34 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/', 'IndexController')->name('index');
-Route::resource('index','IndexController');
+Route::get('index', [IndexController::class], 'index');
 
-// Route::get('/catalog/index', 'CatalogController@index')->name('catalog.index');
-// Route::get('/catalog/category/{slug}', 'CatalogController@category')->name('catalog.category');
-// Route::get('/catalog/brand/{slug}', 'CatalogController@brand')->name('catalog.brand');
-// Route::get('/catalog/product/{slug}', 'CatalogController@product')->name('catalog.product');
-Route::resource('catalog','CatalogController');
-//Route::resource('catalog', CatalogController::class);
+Route::get('catalog/index', [CatalogController::class,'index']);
 
-// Route::get('/basket/index', 'BasketController@index')->name('basket.index');
-// Route::get('/basket/checkout', 'BasketController@checkout')->name('basket.checkout');
+Route::get('/catalog/index', [CatalogController::class,'index'])->name('catalog.index');
 
-Route::resource('basket','BasketController');
+Route::get('/catalog/category/{slug}', [CatalogController::class,'category'])->name('catalog.category');
+Route::get('/catalog/brand/{slug}', [CatalogController::class,'brand'])->name('catalog.brand');
+Route::get('/catalog/product/{slug}', [CatalogController::class,'product'])->name('catalog.product');
 
-Route::post('/basket/add/{id}', 'BasketController@add')
+
+Route::get('/basket/index', [BasketController::class,'index'])->name('basket.index');
+Route::get('/basket/checkout', [BasketController::class,'checkout'])->name('basket.checkout');
+
+// Route::resource('basket','BasketController');
+
+Route::post('/basket/add/{id}', [BasketController::class,'add'])
     ->where('id', '[0-9]+')
     ->name('basket.add');
 
-Route::post('/basket/plus/{id}', 'BasketController@plus')
+Route::post('/basket/plus/{id}', [BasketController::class,'plus'])
     ->where('id', '[0-9]+')
     ->name('basket.plus');
-Route::post('/basket/minus/{id}', 'BasketController@minus')
+Route::post('/basket/minus/{id}', [BasketController::class,'minus'])
     ->where('id', '[0-9]+')
     ->name('basket.minus');
 
-Route::post('/basket/remove/{id}', 'BasketController@remove')
+Route::post('/basket/remove/{id}', [BasketController::class,'remove'])
     ->where('id', '[0-9]+')
     ->name('basket.remove');
-Route::post('/basket/clear', 'BasketController@clear')->name('basket.clear');
+Route::post('/basket/clear', [BasketController::class,'clear'])->name('basket.clear');
