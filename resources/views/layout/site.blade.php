@@ -8,10 +8,11 @@
     <title>Магазин</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/site.js') }}"></script>
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <!-- Бренд -->
             <a class="navbar-brand" href="/">Магазин</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -48,10 +49,8 @@
 
         <div class="row">
             <div class="col-md-3">
-                <h4>Разделы каталога</h4>
-                <p>Здесь будут корневые разделы</p>
-                <h4>Популярные бренды</h4>
-                <p>Здесь будут популярные бренды</p>
+                @include('layout.part.roots')
+                @include('layout.part.brands')
             </div>
             <div class="col-md-9">
                 @yield('content')

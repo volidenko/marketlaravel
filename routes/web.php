@@ -50,3 +50,7 @@ Route::post('/basket/remove/{id}', [BasketController::class,'remove'])
     ->where('id', '[0-9]+')
     ->name('basket.remove');
 Route::post('/basket/clear', [BasketController::class,'clear'])->name('basket.clear');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
