@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,11 +16,12 @@ use App\Http\Controllers\BasketController;
 |
 */
 
+// Route::get('/', [IndexController::class])->name('index');
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::get('index', [IndexController::class], 'index');
 
 Route::get('catalog/index', [CatalogController::class,'index']);
 
@@ -51,6 +53,13 @@ Route::post('/basket/remove/{id}', [BasketController::class,'remove'])
     ->name('basket.remove');
 Route::post('/basket/clear', [BasketController::class,'clear'])->name('basket.clear');
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::name('user.')->prefix('user')->group(function () {
+    Route::get('index', [UserController::class,'index'])->name('index');
+    Auth::routes();
+});
+
+Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth','admin')->group(function () {
+    Route::get('index', [IndexController::class])->name('index');
+});

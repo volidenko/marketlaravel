@@ -1,4 +1,5 @@
-$(function() {
+jQuery(document).ready(function($) {
+// $(function() {
     $('#catalog-sidebar > ul ul').hide();
     $('#catalog-sidebar .badge').on('click', function () {
         var $badge = $(this);
