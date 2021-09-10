@@ -852,10 +852,6 @@
                 "laravel",
                 "lpm"
             ],
-            "support": {
-                "issues": "https://github.com/Laravel-Lang/lang/issues",
-                "source": "https://github.com/Laravel-Lang/lang/tree/7.0.9"
-            },
             "time": "2020-11-30T20:35:41+00:00"
         },
         {
@@ -1139,9 +1135,6 @@
                 "laravel",
                 "ui"
             ],
-            "support": {
-                "source": "https://github.com/laravel/ui/tree/v3.3.0"
-            },
             "time": "2021-05-25T16:45:33+00:00"
         },
         {
@@ -1210,10 +1203,6 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "support": {
-                "issues": "https://github.com/LaravelCollective/html/issues",
-                "source": "https://github.com/LaravelCollective/html"
-            },
             "time": "2020-12-15T20:20:05+00:00"
         },
         {
@@ -7182,5 +7171,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "1.1.0"
 }

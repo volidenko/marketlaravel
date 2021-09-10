@@ -5,6 +5,10 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AdminController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,8 +38,10 @@ Route::get('/catalog/product/{slug}', [CatalogController::class,'product'])->nam
 
 Route::get('/basket/index', [BasketController::class,'index'])->name('basket.index');
 Route::get('/basket/checkout', [BasketController::class,'checkout'])->name('basket.checkout');
+Route::post('/basket/saveorder', [BasketController::class, 'saveOrder'])->name('basket.saveorder');
 
-// Route::resource('basket','BasketController');
+Route::get('/basket/success', [BasketController::class,'success'])
+    ->name('basket.success');
 
 Route::post('/basket/add/{id}', [BasketController::class,'add'])
     ->where('id', '[0-9]+')
@@ -61,5 +67,20 @@ Route::name('user.')->prefix('user')->group(function () {
 });
 
 Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth','admin')->group(function () {
-    Route::get('index', [IndexController::class])->name('index');
+    Route::get('index', [AdminController::class,'index'])->name('index');
+    Route::resource('category', CategoryController::class);
 });
+
+
+// Route::group([
+//     'as' => 'admin.', // имя маршрута, например admin.index
+//     'prefix' => 'admin', // префикс маршрута, например admin/index
+//     'namespace' => 'Admin', // пространство имен контроллера
+//     'middleware' => ['auth', 'admin'] // один или несколько посредников
+// ], function () {
+//     // главная страница панели управления
+//     Route::get('index', [IndexController::class])->name('index');
+//     Route::get('/admin/category/{slug}', [CategoryController::class,'category'])->name('admin.category');
+//     // CRUD-операции над категориями каталога
+//     // Route::resource('category', CategoryController::class);
+// });

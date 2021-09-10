@@ -14,6 +14,14 @@ class Basket extends Model
         return $this->belongsToMany(Product::class)->withPivot('quantity');
     }
 
+    public function getAmount() {
+        $amount = 0.0;
+        foreach ($this->products as $product) {
+            $amount = $amount + $product->price * $product->pivot->quantity;
+        }
+        return $amount;
+    }
+
     //Увеличивает кол-во товара в корзине на величину $count
     public function increase($id, $count = 1) {
         $this->change($id, $count);
