@@ -87,7 +87,7 @@ class BasketController extends Controller
                 'cost' => $product->price * $product->pivot->quantity,
             ]);
         }
-        // уничтожаем корзину
+        // удаляем корзину
         $basket->delete();
 
         return redirect()

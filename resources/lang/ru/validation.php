@@ -139,8 +139,27 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'email' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'phone' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'address' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'slug' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'unique' => 'Поле «:attribute» должно быть уникальным значением',
+            'regex' => 'Поле «:attribute» допускает только буквы, цифры, «-» и «_»',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
         ],
     ],
 
@@ -162,17 +181,18 @@ return [
     */
 
     'attributes' => [
-        'name'                  => 'Имя',
+        'name'                  => 'Имя, Фамилия',
+        'slug'                  => '(англ)',
         'username'              => 'Никнейм',
         'email'                 => 'E-Mail адрес',
         'first_name'            => 'Имя',
         'last_name'             => 'Фамилия',
         'password'              => 'Пароль',
         'password_confirmation' => 'Подтверждение пароля',
+        'address'               => 'Адрес доставки',
+        'phone'                 => 'Номер телефона',
         'city'                  => 'Город',
         'country'               => 'Страна',
-        'address'               => 'Адрес',
-        'phone'                 => 'Телефон',
         'mobile'                => 'Моб. номер',
         'age'                   => 'Возраст',
         'sex'                   => 'Пол',
