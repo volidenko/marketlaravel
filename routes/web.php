@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminController;
 
-
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,7 +63,19 @@ Route::post('/basket/clear', [BasketController::class,'clear'])->name('basket.cl
 
 Route::name('user.')->prefix('user')->group(function () {
     Route::get('index', [UserController::class,'index'])->name('index');
-    Auth::routes();
+    // Auth::routes();
+
+    $this->get('login','Auth\LoginController@showLoginForm')->name('login');
+    $this->post('login','Auth\LoginController@login');
+    $this->post('logout','Auth\LoginController@logout')->name('logout');// Registration Routes...
+    $this->get('register','Auth\RegisterController@showRegistrationForm')->name('register');
+    $this->post('register','Auth\RegisterController@register');// Password Reset Routes...
+    $this->get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    $this->post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    $this->get('password/reset/{​​​token}​​​','Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    $this->post('password/reset','Auth\ResetPasswordController@reset');
+
+
 });
 
 Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth','admin')->group(function () {
