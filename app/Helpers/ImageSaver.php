@@ -29,7 +29,8 @@ class ImageSaver {
             $ext = $source->extension();
             // сохраняем загруженное изображение без изменений
             $path = $source->store('catalog/'.$dir.'/source', 'public');
-            $path = Storage::disk('public')->path($path); // абсолютный путь
+            //$path = Storage::disk('public')->path($path); // абсолютный путь
+            $path = Storage::disk('public')->$request->path($path);
             $name = basename($path); // имя файла
             // создаем уменьшенное изображение 600x300px, качество 100%
             $dst = 'catalog/'.$dir.'/image/';
@@ -52,7 +53,7 @@ class ImageSaver {
      */
     private function resize($src, $dst, $width, $height, $ext) {
         // создаем уменьшенное изображение width x height, качество 100%
-        $image = Image::make($src)->heighten($height)->resizeCanvas($width, $height, 'center', false, 'eeeeee')->encode($ext, 100);
+        $image = Image::make($src)->heighten($height)->resizeCanvas($width, $height, 'center', false, 'yyyyyyy')->encode($ext, 100);
         // сохраняем это изображение под тем же именем, что исходное
         $name = basename($src);
         Storage::disk('public')->put($dst . $name, $image);
