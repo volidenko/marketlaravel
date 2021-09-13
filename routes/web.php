@@ -9,6 +9,12 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminController;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
+
+//use App\Http\Controllers\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,19 +69,17 @@ Route::post('/basket/clear', [BasketController::class,'clear'])->name('basket.cl
 
 Route::name('user.')->prefix('user')->group(function () {
     Route::get('index', [UserController::class,'index'])->name('index');
-    // Auth::routes();
+     Auth::routes();
 
-    $this->get('login','Auth\LoginController@showLoginForm')->name('login');
-    $this->post('login','Auth\LoginController@login');
-    $this->post('logout','Auth\LoginController@logout')->name('logout');// Registration Routes...
-    $this->get('register','Auth\RegisterController@showRegistrationForm')->name('register');
-    $this->post('register','Auth\RegisterController@register');// Password Reset Routes...
-    $this->get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-    $this->post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-    $this->get('password/reset/{​​​token}​​​','Auth\ResetPasswordController@showResetForm')->name('password.reset');
-    $this->post('password/reset','Auth\ResetPasswordController@reset');
-
-
+    // Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    // Route::post('login', [LoginController::class, 'login']);
+    // Route::post('logout', [LoginController::class, 'logout'])->name('logout');// Registration Routes...
+    // Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    // Route::post('register', [RegisterController::class, 'register']);// Password Reset Routes...
+    // Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    // Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    // Route::get('password/reset/{​​​token}​​​', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    // Route::post('password/reset', [ResetPasswordController::class, 'reset']);
 });
 
 Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth','admin')->group(function () {
