@@ -12,10 +12,6 @@ class AdminController extends Controller
      *
      * @return void
      */
-    // public function __construct() {
-    //     $this->middleware('auth');
-    //     $this->middleware('admin');
-    // }
 
     /**
      * Handle the incoming request.
@@ -26,4 +22,8 @@ class AdminController extends Controller
     public function __invoke(Request $request) {
         return view('admin.index');
     }
+
+    // public function index() {
+    //     return view('admin.index');
+    // }
 }

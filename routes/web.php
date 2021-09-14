@@ -26,11 +26,11 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 |
 */
 
-// Route::get('/', [IndexController::class])->name('index');
+Route::get('/', IndexController::class)->name('index');
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 
 Route::get('catalog/index', [CatalogController::class,'index']);
@@ -82,8 +82,12 @@ Route::name('user.')->prefix('user')->group(function () {
     // Route::post('password/reset', [ResetPasswordController::class, 'reset']);
 });
 
+
 Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth','admin')->group(function () {
-    Route::get('index', [AdminController::class,'index'])->name('index');
+    // Route::get('index', [AdminController::class])->name('index');
+
+    //Route::get('index', [AdminController::class,'index'])->name('index');
+    Route::get('index', [AdminController::class,'__invoke'])->name('index');
     Route::resource('category', CategoryController::class);
 });
 
@@ -95,8 +99,8 @@ Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth','a
 //     'middleware' => ['auth', 'admin'] // один или несколько посредников
 // ], function () {
 //     // главная страница панели управления
-//     Route::get('index', [IndexController::class])->name('index');
-//     Route::get('/admin/category/{slug}', [CategoryController::class,'category'])->name('admin.category');
+//     Route::get('index', [AdminController::class,'index'])->name('index');
+//     // Route::get('/admin/category/{slug}', [CategoryController::class,'category'])->name('admin.category');
 //     // CRUD-операции над категориями каталога
 //     // Route::resource('category', CategoryController::class);
 // });

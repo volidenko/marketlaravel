@@ -15,12 +15,10 @@
         <script src="{{ asset('js/site.js') }}"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <!-- Бренд -->
-            {{-- <a class="navbar-brand" href="{{ route('index') }}">Магазин</a> --}}
-            <a class="navbar-brand" href="/public">Магазин</a>
-
+            <a class="navbar-brand" href="{{ route('index') }}">Магазин</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbar-example" aria-controls="navbar-example"
                     aria-expanded="false" aria-label="Toggle navigation">
