@@ -70,7 +70,6 @@ class BasketController extends Controller
             'phone' => 'required|max:255',
             'address' => 'required|max:255',
         ]);
-
         // валидация пройдена, сохраняем заказ
         $basket = Basket::getBasket();
         $user_id = auth()->check() ? auth()->user()->id : null;
@@ -87,13 +86,11 @@ class BasketController extends Controller
                 'cost' => $product->price * $product->pivot->quantity,
             ]);
         }
-        // удаляем корзину
-        $basket->delete();
 
+        $basket->delete(); // очищаем корзину
         return redirect()
             ->route('basket.success')
             ->with('order_id', $order->id);
-            // ->with('success', 'Ваш заказ успешно размещен');
     }
 
     // Сообщение об успешном оформлении заказа

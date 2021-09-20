@@ -13,8 +13,8 @@
     @endphp
     <select name="parent_id" class="form-control" title="Родитель">
         <option value="0">Без родителя</option>
-        @if (count($items))
-            @include('admin.category.part.branch', ['level' => -1, 'parent' => 0])
+        @if (count($parents))
+            @include('admin.category.part.branch', ['items' => $parents, 'level' => -1])
         @endif
     </select>
 </div>
