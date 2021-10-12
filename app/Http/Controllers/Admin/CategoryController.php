@@ -9,30 +9,30 @@ use Illuminate\Support\Facades\Storage;
 use App\Helpers\ImageSaver;
 use App\Http\Requests\CategoryCatalogRequest;
 
-class CategoryController extends Controller
-{
+class CategoryController extends Controller {
     private $imageSaver;
 
     public function __construct(ImageSaver $imageSaver) {
         $this->imageSaver = $imageSaver;
     }
+
     /**
-     * Показывает список всех категорий
+     * Список всех категорий
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function index() {
-        $roots = Category::roots();
-        return view('admin.category.index', compact('roots'));
+        $items = Category::all();
+        return view('admin.category.index', compact('items'));
     }
 
     /**
-     * Показывает форму для создания категории
+     * Форма для создания категории
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $parents = Category::roots();
-        return view('admin.category.create', compact('parents'));
+        $items = Category::all();
+        return view('admin.category.create', compact('items'));
     }
 
     /**
@@ -64,8 +64,8 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category) {
-        $parents = Category::roots();
-        return view('admin.category.edit', compact('category', 'parents'));
+        $items = Category::all();
+        return view('admin.category.edit', compact('category', 'items'));
     }
 
     /**

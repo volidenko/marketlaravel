@@ -2,85 +2,102 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ImageSaver;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
-use Illuminate\Http\Request;
+use App\Http\Requests\BrandCatalogRequest;
 
-class BrandController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class BrandController extends Controller {
+    private $imageSaver;
+
+    public function __construct(ImageSaver $imageSaver) {
+        $this->imageSaver = $imageSaver;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * список всех брендов
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function index() {
+        $brands = Brand::all();
+        return view('admin.brand.index', compact('brands'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * форма для создания бренда
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+        return view('admin.brand.create');
+    }
+
+    /**
+     * Сохранение бренда в базу данных
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(BrandCatalogRequest $request) {
+        $data = $request->all();
+        $data['image'] = $this->imageSaver->upload($request, null, 'brand');
+        $brand = Brand::create($data);
+        return redirect()
+            ->route('admin.brand.show', ['brand' => $brand->id])
+            ->with('success', 'Бренд создан успешно');
     }
 
     /**
-     * Display the specified resource.
+     * Отображение страницы бренда
      *
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
-    {
-        //
+    public function show(Brand $brand) {
+        return view('admin.brand.show', compact('brand'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Форма для редактирования бренда
      *
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
-    {
-        //
+    public function edit(Brand $brand) {
+        return view('admin.brand.edit',compact('brand'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновление бренда в БД
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
-    {
-        //
+    public function update(BrandCatalogRequest $request, Brand $brand) {
+        $data = $request->all();
+        $data['image'] = $this->imageSaver->upload($request, $brand, 'brand');
+        $brand->update($data);
+        return redirect()
+            ->route('admin.brand.show', ['brand' => $brand->id])
+            ->with('success', 'Бренд отредактирован успешно');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаляет бренд (запись в таблице БД)
      *
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
-    {
-        //
+    public function destroy(Brand $brand) {
+        if ($brand->products->count()) {
+            return back()->withErrors('Нельзя удалить бренд, у которого есть товары');
+        }
+        $this->imageSaver->remove($brand, 'brand');
+        $brand->delete();
+        return redirect()
+            ->route('admin.brand.index')
+            ->with('success', 'Бренд каталога успешно удален');
     }
 }

@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
-    // public function getProducts() {
-    //     return Product::where('brand_id', $this->id)->get();
-    // }
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'content',
+        'image',
+    ];
 
     //  Связь «один ко многим» таблицы `brands` с таблицей `products`
     public function products() {

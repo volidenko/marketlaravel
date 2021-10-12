@@ -21,7 +21,6 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <!-- Бренд -->
         <a class="navbar-brand" href="{{ route('admin.index') }}">Панель управления</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-example" aria-controls="navbar-example"
@@ -32,16 +31,16 @@
         <div class="collapse navbar-collapse" id="navbar-example">
             <!-- блок слева -->
             <ul class="navbar-nav mr-auto">
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.order.index') }}">Заказы</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.user.index') }}">Пользователи</a>
-                </li> --}}
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.category.index') }}">Категории</a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.brand.index') }}">Бренды</a>
                 </li>
                 <li class="nav-item">
@@ -49,7 +48,7 @@
                 </li>
                <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.page.index') }}">Страницы</a>
-                </li> --}}
+                </li>
             </ul>
 
             <!-- блок справа -->

@@ -13,9 +13,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $orders = Order::orderBy('status', 'asc')->paginate(10);
+        $statuses = Order::STATUS;
+        return view('admin.order.index', compact('orders', 'statuses'));
     }
 
     /**
@@ -45,9 +46,9 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
-    {
-        //
+    public function show(Order $order) {
+        $statuses = Order::STATUS;
+        return view('admin.order.show', compact('order', 'statuses'));
     }
 
     /**
@@ -56,9 +57,9 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
-    {
-        //
+    public function edit(Order $order) {
+        $statuses = Order::STATUS;
+        return view('admin.order.edit', compact('order', 'statuses'));
     }
 
     /**
@@ -68,9 +69,11 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
-    {
-        //
+    public function update(Request $request, Order $order) {
+        $order->update($request->all());
+        return redirect()
+            ->route('admin.order.show', ['order' => $order->id])
+            ->with('success', 'Заказ был успешно обновлен');
     }
 
     /**

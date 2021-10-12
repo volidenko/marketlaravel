@@ -16,22 +16,52 @@ class Category extends Model
         'image',
     ];
 
-    // public function getProducts() {
-    //     return Product::where('category_id', $this->id)->get();
-    // }
-
     // Связь «один ко многим» таб. `categories` с таб. `products`
     public function products() {
         return $this->hasMany(Product::class);
     }
 
-    //Связь «один ко многим» таб. `categories` с таб. `categories`
+    // Связь «один ко многим» таб. `categories` с таб. `categories`
    public function children() {
        return $this->hasMany(Category::class, 'parent_id');
    }
 
+    // Связь «один ко многим» таб. `categories` с таб. `categories`, позволяет получить не только дочерние категории, но и дочерние-дочерние
+    public function descendants() {
+        return $this->hasMany(Category::class, 'parent_id')->with('descendants');
+    }
+
     // список корневых категорий
     public static function roots() {
         return self::where('parent_id', 0)->with('children')->get();
+    }
+
+    // Возвращает список всех категорий каталога в виде дерева
+    public static function hierarchy() {
+        return self::where('parent_id', 0)->with('descendants')->get();
+    }
+
+    // Проверяет, что переданный идентификатор id может быть родителем этой категории; что категорию не пытаются поместить внутрь себя
+    public function validParent($id) {
+        $id = (integer)$id;
+        // получаем идентификаторы всех потомков текущей категории
+        $ids = $this->getAllChildren($this->id);
+        $ids[] = $this->id;
+        return ! in_array($id, $ids);
+    }
+
+     // Возвращает всех потомков категории с идентификатором $id
+    public function getAllChildren($id) {
+        // получаем прямых потомков категории с идентификатором $id
+        $children = self::where('parent_id', $id)->with('children')->get();
+        $ids = [];
+        foreach ($children as $child) {
+            $ids[] = $child->id;
+            // для каждого прямого потомка получаем его прямых потомков
+            if ($child->children->count()) {
+                $ids = array_merge($ids, $this->getAllChildren($child->id));
+            }
+        }
+        return $ids;
     }
 }

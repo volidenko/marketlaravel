@@ -34,7 +34,13 @@ class BasketController extends Controller
     public function add(Request $request, $id) {
         $quantity = $request->input('quantity') ?? 1;
         $this->basket->increase($id, $quantity);
-        return back();  // выполняем редирект обратно на ту страницу, где была нажата кнопка «В корзину»
+        if ( ! $request->ajax()) {
+            return back();  // выполняем редирект обратно на ту страницу, где была нажата кнопка «В корзину»
+        }
+        // в случае ajax-запроса возвращаем html-код корзины в правом верхнем углу, чтобы заменить исходный html-код, потому что
+        // теперь количество позиций будет другим
+        $positions = $this->basket->products->count();
+        return view('basket.part.basket', compact('positions'));
     }
 
     // Увеличивает кол-во товара в корзине на единицу

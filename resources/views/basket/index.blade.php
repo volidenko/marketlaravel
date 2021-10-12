@@ -1,7 +1,7 @@
-@extends('layout.site')
+@extends('layout.site', ['title' => 'Корзина'])
 
 @section('content')
-    <h1>Ваша корзина</h1>
+    <h1>Корзина</h1>
     @if (count($products))
         @php
             $basketCost = 0;
@@ -70,6 +70,6 @@
             Оформить заказ
         </a>
     @else
-        <p>Ваша корзина пуста</p>
+        <p>Корзина пуста</p>
     @endif
 @endsection

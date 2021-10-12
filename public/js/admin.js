@@ -1,4 +1,5 @@
-jQuery(document).ready(function($) {
+// jQuery(document).ready(function($) {
+$(function() {
     /*
      * Общие настройки ajax-запросов, отправка на сервер csrf-токена
      */

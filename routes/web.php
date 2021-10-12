@@ -5,13 +5,14 @@ use App\Http\Controllers\CatalogController;
 //use App\Http\Controllers\IndexController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 // use App\Http\Controllers\Admin\CategoryController;
 // use App\Http\Controllers\Admin\AdminController;
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\ResetPasswordController;
+// use App\Http\Controllers\Auth\LoginController;
+// use App\Http\Controllers\Auth\RegisterController;
+// use App\Http\Controllers\Auth\ForgotPasswordController;
+// use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 //use App\Http\Controllers\Auth;
@@ -29,14 +30,17 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 // Route::get('/', 'IndexController')->name('index');
 Route::get('/', IndexController::class)->name('index');
 
+
+Route::get('/page/{page:slug}', 'PageController')->name('page.show');
+
 Route::group([
     'as' => 'catalog.', // имя маршрута, например catalog.index
     'prefix' => 'catalog', // префикс маршрута, например catalog/index
 ], function () {
     Route::get('index', [CatalogController::class, 'index'])->name('index');
-    Route::get('category/{slug}', [CatalogController::class, 'category'])->name('category');
-    Route::get('brand/{slug}', [CatalogController::class, 'brand'])->name('brand');
-    Route::get('product/{slug}', [CatalogController::class, 'product'])->name('product');
+    Route::get('category/{category:slug}', [CatalogController::class, 'category'])->name('category');
+    Route::get('brand/{brand:slug}', [CatalogController::class, 'brand'])->name('brand');
+    Route::get('product/{product:slug}', [CatalogController::class, 'product'])->name('product');
 });
 
 Route::group([
@@ -67,8 +71,8 @@ Route::group([
 ], function () {
     Route::get('index', [UserController::class, 'index'])->name('index'); // главная страница личного кабинета пользователя
     // Route::resource('profile', 'ProfileController'); // CRUD-операции над профилями пользователя
-    // Route::get('order', [OrderController::class, 'index'])->name('order.index'); // просмотр списка заказов в личном кабинете
-    // Route::get('order/{order}', [OrderController::class, 'show'])->name('order.show'); // просмотр отдельного заказа в личном кабинете
+    Route::get('order', [OrderController::class, 'index'])->name('order.index'); // просмотр списка заказов в личном кабинете
+    Route::get('order/{order}', [OrderController::class, 'show'])->name('order.show'); // просмотр отдельного заказа в личном кабинете
 });
 
 // Панель управления магазином для администратора сайта
@@ -80,14 +84,14 @@ Route::group([
 ], function () {
     Route::get('index', 'AdminController')->name('index'); // главная страница панели управления
     Route::resource('category', 'CategoryController'); // CRUD-операции над категориями каталога
-    // Route::resource('brand', 'BrandController'); // CRUD-операции над брендами каталога
-    // Route::resource('product', 'ProductController'); // CRUD-операции над товарами каталога
-    // Route::get('product/category/{category}', 'ProductController@category')->name('product.category'); // доп.маршрут для показа товаров категории
-    // Route::resource('order', 'OrderController', ['except' => ['create', 'store', 'destroy']]); // просмотр и редактирование заказов
-    // Route::resource('user', 'UserController', ['except' => ['create', 'store', 'show', 'destroy' ]]); // просмотр и редактирование пользователей
-    // Route::resource('page', 'PageController');   // CRUD-операции над страницами сайта
-    // Route::post('page/upload/image', 'PageController@uploadImage')->name('page.upload.image'); // загрузка изображения из wysiwyg-редактора
-    // Route::delete('page/remove/image', 'PageController@removeImage')->name('page.remove.image'); // удаление изображения в wysiwyg-редакторе
+    Route::resource('brand', 'BrandController'); // CRUD-операции над брендами каталога
+    Route::resource('product', 'ProductController'); // CRUD-операции над товарами каталога
+    Route::get('product/category/{category}', 'ProductController@category')->name('product.category'); // доп.маршрут для показа товаров категории
+    Route::resource('order', 'OrderController', ['except' => ['create', 'store', 'destroy']]); // просмотр и редактирование заказов
+    Route::resource('user', 'UserController', ['except' => ['create', 'store', 'show', 'destroy' ]]); // просмотр и редактирование пользователей
+    Route::resource('page', 'PageController');   // CRUD-операции над страницами сайта
+    Route::post('page/upload/image', 'PageController@uploadImage')->name('page.upload.image'); // загрузка изображения из wysiwyg-редактора
+    Route::delete('page/remove/image', 'PageController@removeImage')->name('page.remove.image'); // удаление изображения в wysiwyg-редакторе
 });
 
 

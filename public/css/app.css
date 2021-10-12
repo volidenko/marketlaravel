@@ -55,6 +55,8 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 }
 
 body {
+  /* background: url(../img/BestHDWallpapersPack307_31_bender777post.jpg) no-repeat fixed top center;
+  background-size: cover; */
   margin: 0;
   font-family: "Nunito", sans-serif;
   font-size: 0.9rem;
@@ -62,7 +64,7 @@ body {
   line-height: 1.6;
   color: #212529;
   text-align: left;
-  background-color: #f8fafc;
+  background-color: #ffffff;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {

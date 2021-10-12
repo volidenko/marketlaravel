@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    // public function getCategory() {
-    //     return Category::find($this->category_id);
-    // }
 
-    // public function getBrand() {
-    //     return Brand::find($this->brand_id);
-    // }
+    protected $fillable = [
+        'category_id',
+        'brand_id',
+        'name',
+        'slug',
+        'content',
+        'image',
+        'price',
+        'new',
+        'hit',
+        'sale',
+    ];
 
     // Связь «товар принадлежит» таблицы `products` с таблицей `categories`
    public function category() {

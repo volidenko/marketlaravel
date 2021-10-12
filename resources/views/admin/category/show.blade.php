@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-6">
             <p><strong>Название:</strong> {{ $category->name }}</p>
-            <p><strong>ID:</strong> {{ $category->slug }}</p>
+            <p><strong>Название(англ.):</strong> {{ $category->slug }}</p>
             <p><strong>Краткое описание</strong></p>
             @isset($category->content)
                 <p>{{ $category->content }}</p>
@@ -16,13 +16,15 @@
         <div class="col-md-6">
             @php
                 if ($category->image) {
+                    $url = url('storage/catalog/category/source/' . $category->image);
                     // $url = url('storage/catalog/category/image/' . $category->image);
-                    $url = Storage::disk('public')->url('catalog/category/image/' . $category->image);
+                    // $url = Storage::disk('public')->url('catalog/category/image/' . $category->image);
                 } else {
-                    $url = Storage::disk('public')->url('catalog/category/image/default.jpg');
+                    // $url = Storage::disk('public')->url('catalog/category/image/default.jpg');
+                    $url = url('storage/catalog/category/image/default.jpg');
                 }
             @endphp
-            <img src="{{ $url }}" alt="" class="img-fluid">
+            <img src="{{ $url }}" alt="" class="img-fluid" style="width: 400px">
         </div>
     </div>
     @if ($category->children->count())

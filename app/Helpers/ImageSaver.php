@@ -7,8 +7,7 @@ use Intervention\Image\Facades\Image;
 
 class ImageSaver {
     /**
-     * Сохраняет изображение при создании или редактировании категории,
-     * бренда или товара; создает два уменьшенных изображения.
+     * Сохраняет изображение при создании или редактировании категории, бренда или товара; создает два уменьшенных изображения.
      *
      * @param \Illuminate\Http\Request $request — объект HTTP-запроса
      * @param \App\Models\Item $item — модель категории, бренда или товара
@@ -29,8 +28,7 @@ class ImageSaver {
             $ext = $source->extension();
             // сохраняем загруженное изображение без изменений
             $path = $source->store('catalog/'.$dir.'/source', 'public');
-            // $path = Storage::disk('public')->path($path); // абсолютный путь
-            $path = Storage::disk('public')->$request->path($path);
+            $path = Storage::disk('public')->path($path); // абсолютный путь
             $name = basename($path); // имя файла
             // создаем уменьшенное изображение 600x300px, качество 100%
             $dst = 'catalog/'.$dir.'/image/';
