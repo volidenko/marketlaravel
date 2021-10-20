@@ -25,9 +25,49 @@ class BasketController extends Controller
         return view('basket.index', compact('products'));
     }
 
-    // Форма оформления заказа
-    public function checkout() {
-        return view('basket.checkout');
+    /**
+     * Форма оформления заказа
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function checkout(Request $request) {
+        $profile = null;
+        $profiles = null;
+        if (auth()->check()) {
+            $user = auth()->user();
+            $profiles = $user->profiles;
+            $prof_id = (int)$request->input('profile_id');
+            if ($prof_id) {
+                $profile = $user->profiles()->whereIdAndUserId($prof_id, $user->id)->first();
+            }
+        }
+        return view('basket.checkout', compact('profiles', 'profile'));
+    }
+
+     /**
+     * Возвращает профиль пользователя в формате JSON
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function profile(Request $request)
+    {
+        if ( ! $request->ajax()) {
+            abort(404);
+        }
+        if ( ! auth()->check()) {
+            return response()->json(['error' => 'Нужна авторизация!'], 404);
+        }
+        $user = auth()->user();
+        $profile_id = (int)$request->input('profile_id');
+        if ($profile_id) {
+            $profile = $user->profiles()->whereIdAndUserId($profile_id, $user->id)->first();
+            if ($profile) {
+                return response()->json(['profile' => $profile]);
+            }
+        }
+        return response()->json(['error' => 'Профиль не найден!'], 404);
     }
 
     //Добавляет товар с идентификатором $id в корзину

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Helpers\ProductFilter;
+
 use Illuminate\Http\Request;
 
 class CatalogController extends Controller
@@ -16,17 +18,15 @@ class CatalogController extends Controller
         return view('catalog.index', compact('roots', 'brands'));
     }
 
-    public function category(Category $category)
+    public function category(Category $category, ProductFilter $filters)
     {
-        $descendants = $category->getAllChildren($category->id); // получаем всех потомков категории
-        $descendants[] = $category->id;
-        $products = Product::whereIn('category_id', $descendants)->paginate(10); // товары категории и всех потомков
+        $products = Product::categoryProducts($category->id)->filterProducts($filters)->paginate(6)->withQueryString(); // фильтруем товары категории и всех ее потомков
         return view('catalog.category', compact('category', 'products'));
     }
 
-    public function brand(Brand $brand)
+    public function brand(Brand $brand, ProductFilter $filters)
     {
-        $products = $brand->products()->paginate(10);
+        $products = $brand->products()->filterProducts($filters)->paginate(6)->withQueryString(); // фильтруем товары бренда
         return view('catalog.brand', compact('brand', 'products'));
     }
 
@@ -36,5 +36,13 @@ class CatalogController extends Controller
         // $category = $product->getCategory();
         // $brand = $product->getBrand();
         return view('catalog.product', compact('product'));
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('query');
+        $query = Product::search($search);
+        $products = $query->paginate(6)->withQueryString();
+        return view('catalog.search', compact('products', 'search'));
     }
 }

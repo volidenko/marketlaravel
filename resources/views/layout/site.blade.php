@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{csrf_token() }}">
     <title>{{ $title ?? 'Интернет-магазин' }}</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -32,11 +33,11 @@
                     </li>
                     @include('layout.part.pages')
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search"
+                <form action="{{ route('catalog.search') }}" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" name="query"
                            placeholder="Поиск по каталогу" aria-label="Search">
-                    <button class="btn btn-outline-info my-2 my-sm-0"
-                            type="submit">Искать</button>
+                    <button class="btn btn-outline-light my-2 my-sm-0"
+                            type="submit">Поиск</button>
                 </form>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item" id="top-basket">
