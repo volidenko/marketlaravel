@@ -14,7 +14,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $orders = Order::orderBy('status', 'asc')->paginate(10);
+        $orders = Order::orderBy('status', 'asc')->paginate(20);
         $statuses = Order::STATUS;
         return view('admin.order.index', compact('orders', 'statuses'));
     }

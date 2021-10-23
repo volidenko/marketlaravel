@@ -79,7 +79,7 @@ class BasketController extends Controller
         }
         // в случае ajax-запроса возвращаем html-код корзины в правом верхнем углу, чтобы заменить исходный html-код, потому что
         // теперь количество позиций будет другим
-        $positions = $this->basket->products->count();
+        $positions = $this->basket->products()->count();
         return view('basket.part.basket', compact('positions'));
     }
 

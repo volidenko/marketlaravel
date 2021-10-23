@@ -1,0 +1,123 @@
+.list-item .card-header {
+    min-height: 4rem;
+}
+
+.list-item .card-header h3 {
+    font-size: 1.1rem;
+}
+
+#catalog-sidebar,
+#brands-popular {
+    list-style: none;
+    padding-left: 0;
+}
+
+#catalog-sidebar ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+#catalog-sidebar>ul {
+    padding-left: 0;
+}
+
+#catalog-sidebar li {
+    position: relative;
+}
+
+#catalog-sidebar a {
+    display: inline-block;
+    margin-right: 1.2rem;
+}
+
+#catalog-sidebar .badge {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+
+.block1 a:link {
+    color: white;
+    text-decoration: none
+}
+
+.block1 a:visited {
+    color: white;
+    text-decoration: none
+}
+
+.block1 a:hover {
+    color: white;
+    text-decoration: underline
+}
+
+.block1 a:active {
+    color: red;
+    text-decoration: underline
+}
+
+#p1 {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+    margin: 38px 20px 38px 0;
+}
+
+.facebook {
+    background-image: url(../img/fb_gray.png);
+}
+
+.instagram {
+    background-image: url(../img/insta_gray.png);
+}
+
+.youtube {
+    background-image: url(../img/youtube_gray.png);
+}
+
+.facebook:hover {
+    background-image: url(../img/fb.png);
+}
+
+.instagram:hover {
+    background-image: url(../img/insta.png);
+}
+
+.youtube:hover {
+    background-image: url(../img/youtube.png);
+}
+
+.div1 {
+    margin: auto;
+}
+
+footer {
+    box-sizing: border-box;
+    background-color: #4d87b6;
+    /* padding-bottom: 1px; */
+}
+
+.wrap {
+    margin: auto;
+    overflow: hidden;
+}
+
+.block1 {
+    width: 25%;
+    float: left;
+    padding: 5px;
+}
+
+.block2 {
+    width: 50%;
+    float: left;
+    padding: 5px;
+}
+
+h5.copyright {
+    color: azure;
+    text-align: center;
+}

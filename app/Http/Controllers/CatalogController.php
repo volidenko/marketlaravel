@@ -32,9 +32,6 @@ class CatalogController extends Controller
 
     public function product(Product $product)
     {
-        //$product = Product::where('slug', $slug)->firstOrFail();
-        // $category = $product->getCategory();
-        // $brand = $product->getBrand();
         return view('catalog.product', compact('product'));
     }
 

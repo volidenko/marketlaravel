@@ -1,4 +1,3 @@
-// jQuery(document).ready(function ($) {
 $(function() {
     // Общие настройки ajax-запросов, отправка на сервер csrf-токена
     $.ajaxSetup({
@@ -9,15 +8,15 @@ $(function() {
 
     // Раскрытие и скрытие пунктов меню каталога в левой колонке
     $('#catalog-sidebar > ul ul').hide();
-    $('#catalog-sidebar .badge').on('click', function () {
+    $('#catalog-sidebar .badge').on('click', function() {
         var $badge = $(this);
         var closed = $badge.siblings('ul') && !$badge.siblings('ul').is(':visible');
         if (closed) {
-            $badge.siblings('ul').slideDown('normal', function () {
+            $badge.siblings('ul').slideDown('normal', function() {
                 $badge.children('i').removeClass('fa-plus').addClass('fa-minus');
             });
         } else {
-            $badge.siblings('ul').slideUp('normal', function () {
+            $badge.siblings('ul').slideUp('normal', function() {
                 $badge.children('i').removeClass('fa-minus').addClass('fa-plus');
             });
         }
@@ -25,8 +24,8 @@ $(function() {
 
     // Получение данных профиля пользователя при оформлении заказа
     $('form#profiles button[type="submit"]').hide();
-    $('form#profiles select').on('change', function () {  // при выборе профиля отправляем ajax-запрос, чтобы получить данные
-        if ($(this).val() == 0) {  // если выбран элемент «Выберите профиль»
+    $('form#profiles select').on('change', function() { // при выборе профиля отправляем ajax-запрос, чтобы получить данные
+        if ($(this).val() == 0) { // если выбран элемент «Выберите профиль»
             $('#checkout').trigger('reset'); // очищаем все поля формы оформления заказа
             return;
         }
@@ -48,14 +47,14 @@ $(function() {
                 $('input[name="address"]').val(data.profile.address);
                 $('textarea[name="comment"]').val(data.profile.comment);
             },
-            error: function (reject) {
+            error: function(reject) {
                 alert(reject.responseJSON.error);
             }
         });
     });
 
     // Добавление товара в корзину с помощью ajax-запроса без перезагрузки
-    $('form.add-to-basket').on('submit', function(event){
+    $('form.add-to-basket').on('submit', function(event) {
         event.preventDefault(); // отменяем отправку формы стандартным способом
         var $form = $(this); // получаем данные этой формы добавления в корзину
         var data = new FormData($form[0]);
@@ -66,14 +65,45 @@ $(function() {
             contentType: false,
             type: 'POST',
             dataType: 'HTML',
-            beforeSend: function () {
+            beforeSend: function() {
                 var spinner = ' <span class="spinner-border spinner-border-sm"></span>';
                 $form.find('button').append(spinner);
             },
-            success: function (html) {
+            success: function(html) {
                 $form.find('.spinner-border').remove();
                 $('#top-basket').html(html);
             }
         });
     });
+
+    // определяет какая из карточек имеет максимальную высоту, а затем установит её всем карточкам
+    var maxHeight = 0;
+    $('.card').each(function() {
+        if ($(this).height() > maxHeight) {
+            maxHeight = $(this).height();
+        }
+    });
+    $('.card').each(function() {
+        $(this).css('min-height', maxHeight);
+    });
+
+    // делает всю карточку кликабельной
+    $(document).on('click', function(e) {
+        if ($(e.target).closest('.card').is('[data-target]')) {
+            e.preventDefault();
+            location.href = $(e.target).closest('.card').attr('data-target');
+        }
+    });
+
+    // установить минимальную высоту при изменении высоты заголовка
+    maxHeight = 0;
+    $('.card-title').each(function() {
+        if ($(this).height() > maxHeight) {
+            maxHeight = $(this).height();
+        }
+    });
+    $('.card-title').each(function() {
+        $(this).css('min-height', maxHeight + 'px');
+    });
+
 });

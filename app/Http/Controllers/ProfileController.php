@@ -13,7 +13,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $profiles = auth()->user()->profiles()->paginate(4);
+        $profiles = auth()->user()->profiles()->paginate(20);
         return view('user.profile.index', compact('profiles'));
     }
 

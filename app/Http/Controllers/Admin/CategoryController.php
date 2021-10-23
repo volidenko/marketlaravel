@@ -81,29 +81,6 @@ class CategoryController extends Controller {
         return redirect()
             ->route('admin.category.show', ['category' => $category->id])
             ->with('success', 'Категория была успешно исправлена');
-
-        // if ($request->remove) { // если надо удалить изображение
-        //     $old = $category->image;
-        //     if ($old) {
-        //         Storage::disk('public')->delete('catalog/category/source/' . $old);
-        //     }
-        // }
-        // $file = $request->file('image');
-        // if ($file) { // был загружен файл изображения
-        //     $path = $file->store('catalog/category/source', 'public');
-        //     $base = basename($path);
-        //     // удаляем старый файл изображения
-        //     $old = $category->image;
-        //     if ($old) {
-        //         Storage::disk('public')->delete('catalog/category/source/' . $old);
-        //     }
-        // }
-        // $data = $request->all();
-        // $data['image'] = $base ?? null;
-        // $category->update($data);
-        // return redirect()
-        //     ->route('admin.category.show', ['category' => $category->id])
-        //     ->with('success', 'Категория была успешно исправлена');
     }
 
     /**

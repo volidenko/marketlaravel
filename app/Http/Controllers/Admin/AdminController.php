@@ -22,8 +22,4 @@ class AdminController extends Controller
     public function __invoke(Request $request) {
         return view('admin.index');
     }
-
-    // public function index() {
-    //     return view('admin.index');
-    // }
 }

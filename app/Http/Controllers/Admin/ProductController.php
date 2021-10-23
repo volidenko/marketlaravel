@@ -25,7 +25,7 @@ class ProductController extends Controller {
      */
     public function index() {
         $roots = Category::where('parent_id', 0)->get();
-        $products = Product::paginate(5);
+        $products = Product::paginate(20);
         return view('admin.product.index', compact('products', 'roots'));
     }
 
@@ -35,7 +35,7 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function category(Category $category) {
-        $products = $category->products()->paginate(5);
+        $products = $category->products()->paginate(20);
         return view('admin.product.category', compact('category', 'products'));
     }
 
@@ -125,7 +125,7 @@ class ProductController extends Controller {
         $this->imageSaver->remove($product, 'product');
         $product->delete();
         return redirect()
-            ->route('admin.category.index')
+            ->route('admin.catalog.index')
             ->with('success', 'Товар каталога успешно удален');
     }
 }

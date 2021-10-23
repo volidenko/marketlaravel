@@ -13,10 +13,13 @@
         </form>
     </div>
     {{-- <h5 class="bg-info text-white p-1 mb-4">Товары бренда</h5> --}}
+    <div class="container-fluid content-row">
     <div class="row">
         @foreach ($products as $product)
             @include('catalog.part.product', ['product' => $product])
         @endforeach
     </div>
+</div>
+
     {{ $products->links() }}
 @endsection
